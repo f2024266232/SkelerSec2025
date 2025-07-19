@@ -1,6 +1,6 @@
 import { eq, desc, sql, count } from "drizzle-orm";
-import { db } from "./db";
-import { teams, challenges, submissions, type Team, type Challenge, type Submission, type InsertTeam, type InsertChallenge, type InsertSubmission } from "@shared/schema";
+import { db } from "./db.js";
+import { teams, challenges, submissions, type Team, type Challenge, type Submission, type InsertTeam, type InsertChallenge, type InsertSubmission } from "@shared/schema.js";
 
 export interface TeamWithScore extends Team {
   score: number;
@@ -144,10 +144,10 @@ export class DatabaseStorage implements IStorage {
     if (!challenge) {
       throw new Error("Challenge not found");
     }
-    
+
     // Check if the flag is correct
     const isCorrect = submission.flag === challenge.flag;
-    
+
     const result = await db.insert(submissions).values({
       ...submission,
       isCorrect
@@ -175,7 +175,7 @@ export class DatabaseStorage implements IStorage {
         sql`${submissions.teamId} = ${teamId} AND ${submissions.challengeId} = ${challengeId} AND ${submissions.isCorrect} = true`
       )
       .limit(1);
-    
+
     return result.length > 0;
   }
 }
