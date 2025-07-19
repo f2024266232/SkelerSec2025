@@ -19,6 +19,16 @@ export function log(message: string, source = "express") {
   console.log(`${formattedTime} [${source}] ${message}`);
 }
 
+export function serveStatic(app: Express) {
+  const distPath = path.resolve(import.meta.dirname, "..", "dist", "public");
+  app.use(express.static(distPath));
+  
+  app.get("*", (req, res) => {
+    const indexPath = path.resolve(distPath, "index.html");
+    res.sendFile(indexPath);
+  });
+}
+
 export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
     middlewareMode: true,
