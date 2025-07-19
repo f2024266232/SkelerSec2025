@@ -1,6 +1,6 @@
 import { eq, desc, sql, count } from "drizzle-orm";
 import { db } from "./db.js";
-import { teams, challenges, submissions, type Team, type Challenge, type Submission, type InsertTeam, type InsertChallenge, type InsertSubmission } from "@shared/schema.js";
+import { teams, challenges, submissions, type Team, type Challenge, type Submission, type InsertTeam, type InsertChallenge, type InsertSubmission } from "../shared/schema.js";
 
 export interface TeamWithScore extends Team {
   score: number;
